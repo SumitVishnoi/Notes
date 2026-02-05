@@ -73,7 +73,7 @@ const [notes, setNotes] = useState([]);
         </form>
       </div>
 
-      <div className="p-5 flex flex-wrap justify-center gap-5">
+      <div className="p-5 flex flex-wrap justify-center gap-5 ">
         {notes.map((note) => (
           
           <div key={note._id} className="w-70 bg-[#E9E582] rounded p-2">
