@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from "react";
 import Navbar from "../components/Navbar";
-import Card from "../components/Card";
 import axios from "axios";
 
 const Notes = () => {
   const [notes, setNotes] = useState([]);
 
   function fetchNotes() {
-    axios.get("http://localhost:3000/api/notes").then((res) => {
+    axios.get("https://notes-t4qf.onrender.com/api/notes").then((res) => {
       setNotes(res.data.notes);
     });
   }
@@ -23,7 +22,7 @@ const Notes = () => {
 
 
     axios
-      .post("http://localhost:3000/api/notes", {
+      .post("https://notes-t4qf.onrender.com/api/notes", {
         title: title.value,
         description: description.value,
       })
@@ -34,7 +33,7 @@ const Notes = () => {
   }
 
   function handleDeleteNote(noteId) {
-    axios.delete("http://localhost:3000/api/notes/" + noteId).then(() => {
+    axios.delete("https://notes-t4qf.onrender.com/api/notes/" + noteId).then(() => {
 
       fetchNotes()
     });
@@ -43,7 +42,7 @@ const Notes = () => {
   function handleUpdateNote(noteId) {
     const newDescription = prompt("Enter new description")
 
-    axios.patch("http://localhost:3000/api/notes/"+noteId, {
+    axios.patch("https://notes-t4qf.onrender.com/api/notes/"+noteId, {
       description:newDescription
     })
     .then((res)=> {
