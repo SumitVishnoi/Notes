@@ -2,12 +2,14 @@ import axios from "axios";
 import { useEffect, useState } from "react";
 
 function App() {
-const [notes, setNotes] = useState([]);
+  const [notes, setNotes] = useState([]);
 
   function fetchNotes() {
-    axios.get("https://notes-t4qf.onrender.com/api/notes").then((res) => {
-      setNotes(res.data.notes);
-    });
+    axios
+      .get("https://notes-creater-cbbq.onrender.com/api/notes")
+      .then((res) => {
+        setNotes(res.data.notes);
+      });
   }
 
   useEffect(() => {
@@ -19,37 +21,36 @@ const [notes, setNotes] = useState([]);
 
     const { title, description } = e.target.elements;
 
-
     axios
-      .post("https://notes-t4qf.onrender.com/api/notes", {
+      .post("https://notes-creater-cbbq.onrender.com/api/notes", {
         title: title.value,
         description: description.value,
       })
       .then(() => {
-
         fetchNotes();
       });
   }
 
   function handleDeleteNote(noteId) {
-    axios.delete("https://notes-t4qf.onrender.com/api/notes/" + noteId).then(() => {
-
-      fetchNotes()
-    });
+    axios
+      .delete("https://notes-creater-cbbq.onrender.com/api/notes/" + noteId)
+      .then(() => {
+        fetchNotes();
+      });
   }
 
   function handleUpdateNote(noteId) {
-    const newDescription = prompt("Enter new description")
+    const newDescription = prompt("Enter new description");
 
-    axios.patch("https://notes-t4qf.onrender.com/api/notes/"+noteId, {
-      description:newDescription
-    })
-    .then((res)=> {
-      console.log(res.data)
+    axios
+      .patch("https://notes-creater-cbbq.onrender.com/api/notes/" + noteId, {
+        description: newDescription,
+      })
+      .then((res) => {
+        console.log(res.data);
 
-      fetchNotes()
-    })
-
+        fetchNotes();
+      });
   }
   return (
     <div className="bg-[#EAEAEA] min-h-screen">
@@ -75,12 +76,13 @@ const [notes, setNotes] = useState([]);
 
       <div className="p-5 flex flex-wrap justify-center gap-5 ">
         {notes.map((note) => (
-          
           <div key={note._id} className="w-70 bg-[#E9E582] rounded p-2">
             <div className="px-4 pt-8">
               <p className="text-sm text-gray-500">12/12/2001</p>
               <div>
-                <h2 className="text-xl font-semibold line-clamp-1">{note.title}</h2>
+                <h2 className="text-xl font-semibold line-clamp-1">
+                  {note.title}
+                </h2>
               </div>
             </div>
             <hr />
@@ -98,25 +100,24 @@ const [notes, setNotes] = useState([]);
 
             <div className="flex justify-between">
               <button
-              onClick={()=> handleDeleteNote(note._id)}
-              className="bg-[#635f00] px-5 py-1 rounded text-white active:scale-95 font-medium cursor-pointer"
-            >
-              Delete
-            </button>
+                onClick={() => handleDeleteNote(note._id)}
+                className="bg-[#635f00] px-5 py-1 rounded text-white active:scale-95 font-medium cursor-pointer"
+              >
+                Delete
+              </button>
 
-            <button
-              onClick={()=>handleUpdateNote(note._id)}
-              className="bg-[#979304] px-5 py-1 rounded text-white active:scale-95 font-medium cursor-pointer"
-            >
-              Update
-            </button>
+              <button
+                onClick={() => handleUpdateNote(note._id)}
+                className="bg-[#979304] px-5 py-1 rounded text-white active:scale-95 font-medium cursor-pointer"
+              >
+                Update
+              </button>
             </div>
-
           </div>
         ))}
       </div>
     </div>
-  )
+  );
 }
 
-export default App
+export default App;
